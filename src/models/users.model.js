@@ -49,14 +49,14 @@ const userSchema = new Schema(
         timestamps:true
     } 
 )
-// mongoose plugins 30:00
+// mongoose plugins 30:00 password save
 userSchema.pre("save",async function(next){
     if(!this.Modified("password")) return next();
 
     this.password = bcrypt.hash(this.password,10)
     next()
 })
-
+// password check its return true value
 userSchema.methods.isPasswordCorrect = async function(password){
      return await bcrypt.compare(password,this.password)
 }
