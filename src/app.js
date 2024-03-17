@@ -1,5 +1,6 @@
 import express from "express"
-import connectDB from "./db"
+// import connectDB from "./db"
+import cors from "cors"
 import cookieParser from "cookie-parser"
 
 
@@ -19,10 +20,15 @@ app.use(express.static("public"))
 
 app.use(cookieParser())
 
-// routes
+// routes import
 
 import userRouter from './routes/user.routes.js'
 
 
-// rotes declaration
+// routes declaration
+app.use("/api/v1/users",userRouter)
+
+// https://localhost:8000/api/v1/users/registerOR login
+
+
 export {app}

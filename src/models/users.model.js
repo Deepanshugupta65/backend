@@ -51,7 +51,7 @@ const userSchema = new Schema(
 )
 // mongoose plugins 30:00 password save
 userSchema.pre("save",async function(next){
-    if(!this.Modified("password")) return next();
+    if(!this.isModified("password")) return next();
 
     this.password = bcrypt.hash(this.password,10)
     next()
@@ -73,7 +73,7 @@ userSchema.methods.generateAccessToken = function(){
     }
     )
 }
-
+ 
 userSchema.methods.generateRefeshToken = function(){
     return jwt.sign({
          _id:this._id,
