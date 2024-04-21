@@ -3,7 +3,7 @@ import {ApiError} from "../utils/ApiError.js"
 import {User} from "../models/users.model.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 import { ApiResponse } from "../utils/ApiResponses.js";
-
+// import jwt from "jsonwebtoken"
 const generateAccessAndRefreshTokens = async(userId)=>{
   try {
     const user  =  await User.findById(userId)
@@ -106,7 +106,7 @@ const loginUser = asyncHandler(async (req,res)=>{
       // access and refreshtokens
       // send cookies
       const {email,username,password} = req.body
-      if(!username || !email){
+      if(!username && !email){
         throw new ApiError(400,"username or email is required")
       }
       const user = await User.findOne({
@@ -166,6 +166,8 @@ const logoutUser = asyncHandler(async(req,res)=>{
      .clearCookie("refreshToken",options)
      .json(new ApiResponse(200,{},"User logged Out"))
 })
+
+  
 export {
     registerUser,
     loginUser,
